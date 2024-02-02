@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from stories import story
 
 app = Flask(__name__)
@@ -10,8 +10,4 @@ def show_home():
 
 @app.route('/story')
 def show_story():
-  print(f"Prompts: {story.prompts}")
-  print(f"Template: {story.template}")
-  ans = {"place":"condo", "noun":"dragon", "verb":"eat", "adjective":"frozen", "plural_noun":"popsicles"}
-  # return story.generate(ans)
-  return render_template('story.html', story_gen = story.generate(ans))
+  return render_template('story.html', story_gen = story.generate(request.args))
